@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap');
+:root {
+  --primary-color: rgb(17, 86, 102);
+}
+
+* {
+  box-sizing: border-box;
+  outline: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--primary-color);
+  font-family: 'Open sans', sans-serif;
+  font-size: 1.3em;
+  line-height: 1.5em;
+}
+
+
+.titulo {
+  text-align: center;
+}
+
+.container {
+  max-width: 640px;
+  margin: 50px auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.botao {
+  border: none;
+  border-radius: 5px;
+  color: #FFFFFF;
+  font-size: 15px;
+  padding: 7px;
+  cursor: pointer;
+  transition: all 400ms ease;
+}
+
+.botaoApagar {
+  background-color: white;
+  color:red;
+  box-shadow: inset 0 0 0 3px red;
+}
+
+.botaoApagar:hover {
+  background-color: red;
+  color: white;
+}
+
+.botaoAdicionaTarefa {
+  background-color: seagreen;
+}
+
