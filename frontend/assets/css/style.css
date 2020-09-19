@@ -17,9 +17,9 @@ body {
   line-height: 1.5em;
 }
 
-
 .titulo {
   text-align: center;
+  text-transform: capitalize;
 }
 
 .container {
@@ -38,16 +38,17 @@ body {
   padding: 7px;
   cursor: pointer;
   transition: all 400ms ease;
+  margin-left: 10px;
 }
 
 .botaoApagar {
   background-color: white;
   color:red;
-  box-shadow: inset 0 0 0 3px red;
+  box-shadow: inset 0 0 0 3px rgb(235, 44, 44);
 }
 
 .botaoApagar:hover {
-  background-color: red;
+  background-color: rgb(235, 44, 44);
   color: white;
 }
 
@@ -55,3 +56,11 @@ body {
   background-color: seagreen;
 }
 
+.botaoConcluido {
+	background-color: seagreen;
+	color: white;
+}
+
+.textoConcluido {
+	color: seagreen;
+}

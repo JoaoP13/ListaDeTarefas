@@ -9,19 +9,27 @@ function salvarTarefas() {
     const tarefas = [];
 
     for (let tarefa of liTarefas) {
-        let textoTarefa = tarefa.innerText;
+		let textoTarefa = tarefa.innerText;
+
+		// Se o texto da tarefa inclui o botão concluída,
+		// é porque o usuário ainda tem a opção de concluir
+		let tarefaConcluida = !textoTarefa.includes('Concluída');
+
         textoTarefa = textoTarefa.replace('Apagar', ' ').trim();
-        tarefas.push(textoTarefa);
+        textoTarefa = textoTarefa.replace('Concluída', ' ').trim();
+        tarefas.push({
+			texto: textoTarefa,
+			concluida: tarefaConcluida
+		});
     }
 
     const tarefasJSON = JSON.stringify(tarefas);
     localStorage.setItem('tarefas', tarefasJSON);
 }
 
-
 // Função para recuperar as tarefas salvas no armazenamento do navegador
 function adicionaTarefasSalvas() {
-    const tarefas = localStorage.getItem('tarefas');
+    const tarefas = localStorage.getItem('tarefas') || '[]';
     const tarefasArray = JSON.parse(tarefas);
 
     for (let tarefa of tarefasArray) {
@@ -49,9 +57,17 @@ function limpaInput() {
     input.focus();
 }
 
+// Cria o botão para concluir
+function criaBotaoConcluido(li) {
+    li.innerText += ' ';
+    const botaoConcluido = document.createElement('button');
+    botaoConcluido.innerText = 'Concluída';
+	botaoConcluido.setAttribute('class', 'botao botaoConcluido');
+    li.appendChild(botaoConcluido);
+}
+
 // Cria o botão para apagar
 function criaBotaoApagar(li) {
-    li.innerText += ' ';
     const botaoApagar = document.createElement('button');
     botaoApagar.innerText = 'Apagar';
     botaoApagar.setAttribute('class', 'botao botaoApagar');
@@ -59,11 +75,17 @@ function criaBotaoApagar(li) {
 }
 
 //Cria a tarefa, a adicionando à lista
-function criaTarefa(textoInput) {
-    const li = criaLi();
-    li.innerText = textoInput;
+function criaTarefa(objetoInput) {
+	const li = criaLi();
+	li.innerText = objetoInput.texto;
     listaDeTarefas.appendChild(li);
-    limpaInput();
+	limpaInput();
+
+	if (objetoInput.concluida)
+		li.classList.add('textoConcluido');
+	else
+		criaBotaoConcluido(li);
+
     criaBotaoApagar(li);
     salvarTarefas();
 }
@@ -72,7 +94,7 @@ function criaTarefa(textoInput) {
 input.addEventListener('keypress', e => {
     if (e.keyCode === 13) {
         if (!input.value) return;
-        criaTarefa(input.value);
+        criaTarefa({ texto: input.value });
     }
 });
 
@@ -80,7 +102,7 @@ input.addEventListener('keypress', e => {
 // Monitora o evento de clique do mouse para adicionar uma nova tarefa
 botaoAdicionaTarefa.addEventListener('click', e => {
     if (!input.value) return;
-    criaTarefa(input.value);
+	criaTarefa({ texto: input.value });
 });
 
 // Adiciona funcionalidade ao botao apagar
@@ -88,6 +110,16 @@ document.addEventListener('click', e => {
     const elemento = e.target;
     if (elemento.classList.contains('botaoApagar')) {
         elemento.parentElement.remove();
+    }
+    salvarTarefas();
+});
+
+// Adiciona funcionalidade ao botao concluido
+document.addEventListener('click', e => {
+    const elemento = e.target;
+    if (elemento.classList.contains('botaoConcluido')) {
+		elemento.parentElement.classList.add('textoConcluido');
+		elemento.remove();
     }
     salvarTarefas();
 });

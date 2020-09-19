@@ -1,0 +1,23 @@
+{
+  "name": "lista-de-tarefas",
+  "version": "1.0.0",
+  "description": "Uma página WEB feita utilizando JavaScript, HTML e CSS. Nela podem ser manuseadas tarefas que o usuário deseja realizar no dia, ficando salvas no armazenamento local do navegador.",
+  "main": "servidor.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node servidor.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoaoP13/ListaDeTarefas.git"
+  },
+  "author": "João Paulo Gonçalves de Souza",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JoaoP13/ListaDeTarefas/issues"
+  },
+  "homepage": "https://github.com/JoaoP13/ListaDeTarefas#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
